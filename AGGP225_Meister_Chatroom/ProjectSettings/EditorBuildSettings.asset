@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ChatRoom.unity
     guid: a1463ee430b5e6e44b790c9877595203
+  - enabled: 1
+    path: Assets/Scenes/FPS.unity
+    guid: 30d75f763898f3d4782467886d919ca7
   m_configObjects: {}

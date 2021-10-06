@@ -14,6 +14,7 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
     static string gameplayLevel = "Game Level";
 
     public string username;
+    public Color playerColor;
 
     public static PhotonManagerExample instance { get; private set; }
 
@@ -29,6 +30,7 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
             instance = this;
             DontDestroyOnLoad(this);
         }
+
 
         PhotonNetwork.AutomaticallySyncScene = true;
         roomOptions.MaxPlayers = 4;
@@ -68,6 +70,12 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
         Debug.Log("[PhotonManager][CreatingRoom] Trying to create room....");
         PhotonNetwork.CreateRoom(null, roomOptions);
     }
+    public void CreateRoom(string Name)
+    {
+        Debug.Log("[PhotonManager][CreatingRoom] Trying to create room : " + Name);
+        PhotonNetwork.CreateRoom(Name, roomOptions);
+    }
+
     public override void OnCreatedRoom()
     {
         Debug.Log("[PhotonManager][OnCreatedRoom]");
@@ -75,17 +83,36 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("[PhotonManager][OnJoinedRoom]");
-
-        PhotonNetwork.LoadLevel(gameplayLevel);
+        if(PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel(gameplayLevel);
+        }
     }
 
     public void JoinChatroom()
     {
         gameplayLevel = "Chatroom";
         PhotonNetwork.JoinRandomRoom();
+
     }
 
+    public void JoinGame()
+    {
+        gameplayLevel = "FPS";
+        PhotonNetwork.JoinRandomRoom();
+    }
 
+    public void LoadMenue()
+    {
+        gameplayLevel = "MainMenu";
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom()
+    {
+        PhotonNetwork.LoadLevel(0);
+        Destroy(gameObject);
+    }
 
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -103,10 +130,10 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
     }
 
 
-    [PunRPC]
-    void UsernameRPC(string _username, string _chat)
-    {
-        PhotonChatManager.instance.chatBox.text += "\n" + _username + " :  " + _chat;
-    }
+    //[PunRPC]
+    //void UsernameRPC(string _username, string _chat)
+    //{
+    //    PhotonChatManager.instance.chatBox.text += "\n" + _username + " :  " + _chat;
+    //}
 
 }

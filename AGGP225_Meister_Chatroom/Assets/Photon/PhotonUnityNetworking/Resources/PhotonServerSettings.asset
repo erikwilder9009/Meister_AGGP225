@@ -41,6 +41,14 @@ MonoBehaviour:
   - RespawnSpaceship
   - ChangeColor
   - UsernameRPC
+  - TakeDamage
+  - UpdateHealthRPC
+  - UpdateUsernameRPC
+  - UpdateHealth
+  - ChatRPC
+  - UpdateUI
+  - SetUsername
+  - SetName
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

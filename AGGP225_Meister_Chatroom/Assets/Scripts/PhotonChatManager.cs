@@ -16,32 +16,61 @@ public class PhotonChatManager : MonoBehaviour
     public InputField chatInput;
     public Text Username;
     public Text chatBox;
-    string name;
+    string username;
+    public Color color;
+    bool chatSelected;
 
     // Start is called before the first frame update
     void Start()
     {
+        chatSelected = false;
         instance = this;
-        name = PhotonManagerExample.instance.username;
-        Username.text = PhotonManagerExample.instance.username;
+        username = PhotonManagerExample.instance.username;
+        Username.text = username;
+        color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            if (chatSelected)
+            {
+                SendChat();
+                chatInput.DeactivateInputField();
+                Cursor.visible = false;
+                chatSelected = false;
+            }
+            else
+            {
+                chatInput.ActivateInputField();
+                Cursor.visible = true;
+                chatSelected = true;
+            }
+        }
     }
-
 
     public void SendChat()
     {
         if (PhotonManagerExample.instance && PhotonManagerExample.instance.gameObject.GetPhotonView())
         {
-            PhotonManagerExample.instance.gameObject.GetPhotonView().RPC("UsernameRPC", RpcTarget.AllBuffered, name, chatInput.text);
+            gameObject.GetPhotonView().RPC("ChatRPC", RpcTarget.AllBuffered, username, chatInput.text);
         }
         else
         {
-            Debug.Log("[PhotonChatManager] PhotonManagerExample has no PhotonView");
+            Debug.Log("[PhotonChatManager] PhotonChatManagerExample has no PhotonView");
         }
         chatInput.text = "";
+    }
+
+    [PunRPC]
+    void ChatRPC(string _username, string _chat)
+    {
+        PhotonChatManager.instance.chatBox.text += "\n" + _username + " :  " + _chat;
+    }
+
+
+    public void LoadMenue()
+    {
+        PhotonManagerExample.instance.LoadMenue();
     }
 }
