@@ -24,18 +24,28 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        health = 20;
+        gameObject.GetPhotonView().RPC("TakeDamage", RpcTarget.AllBuffered, 0);
+        //username = PhotonManagerExample.instance.username;
+        //ui.nameText.text = username;
+        //gameObject.GetPhotonView().RPC("UpdateUI", RpcTarget.AllBuffered, PhotonManagerExample.instance.username);
+
         photonView = gameObject.GetPhotonView();
         if (gameObject.GetPhotonView().IsMine)
         {
-            username = PhotonManagerExample.instance.username;
             rb = gameObject.GetComponent<Rigidbody>();
             grounded = true;
             PlayerCamera.enabled = true;
-
-            gameObject.GetPhotonView().RPC("UpdateUI", RpcTarget.All);
         }
-        health = 20;
-        gameObject.GetPhotonView().RPC("TakeDamage", RpcTarget.All, 0);
+
+        if (ui != null)
+        {
+            ui.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+        }
+        else
+        {
+            Debug.Log("No ui on PlayerController");
+        }
     }
 
 
@@ -95,14 +105,9 @@ public class PlayerController : MonoBehaviour
 
 
     [PunRPC]
-    void UpdateUI()
+    void UpdateUI(string _username)
     {
-        ui.nameText.text = username;
-    }
-    [PunRPC]
-    void SetName()
-    {
-        username = PhotonManagerExample.instance.username;
+        ui.nameText.text = _username;
     }
 
 

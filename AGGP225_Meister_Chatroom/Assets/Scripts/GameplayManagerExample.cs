@@ -29,7 +29,7 @@ public class GameplayManagerExample : MonoBehaviour
             if (playerPrefab)
             {
                 PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity).GetComponent<PlayerController>();
-                gameObject.GetPhotonView().RPC("ChangeColor", RpcTarget.All);
+                gameObject.GetPhotonView().RPC("ChangeColor", RpcTarget.AllBuffered);
             }
             else
             {

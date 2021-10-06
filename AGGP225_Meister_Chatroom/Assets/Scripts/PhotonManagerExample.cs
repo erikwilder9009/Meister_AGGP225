@@ -9,6 +9,9 @@ using Photon.Realtime;
 
 public class PhotonManagerExample : MonoBehaviourPunCallbacks
 {
+    [SerializeField]
+    int PlayersInGame;
+
     string gameVersion = "1";
     RoomOptions roomOptions = new RoomOptions();
     static string gameplayLevel = "Game Level";
@@ -16,10 +19,22 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
     public string username;
     public Color playerColor;
 
+    public PhotonView photonView;
+
+
+
     public static PhotonManagerExample instance { get; private set; }
 
 
     void Awake()
+    {
+        photonView = gameObject.GetComponent <PhotonView> ();
+        PhotonNetwork.AutomaticallySyncScene = true;
+        roomOptions.MaxPlayers = 4;
+    }
+
+
+    private void Start()
     {
         if (instance)
         {
@@ -32,13 +47,6 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
         }
 
 
-        PhotonNetwork.AutomaticallySyncScene = true;
-        roomOptions.MaxPlayers = 4;
-    }
-
-
-    private void Start()
-    {
         Connect();
     }
 
