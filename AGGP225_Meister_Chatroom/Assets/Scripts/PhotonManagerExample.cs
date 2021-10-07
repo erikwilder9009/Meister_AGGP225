@@ -144,4 +144,9 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
     //    PhotonChatManager.instance.chatBox.text += "\n" + _username + " :  " + _chat;
     //}
 
+
+    public void SetNickname(string nickname)
+    {
+        gameObject.GetPhotonView().Owner.NickName = nickname;
+    }
 }

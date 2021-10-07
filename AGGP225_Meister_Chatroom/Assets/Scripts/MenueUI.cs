@@ -76,8 +76,8 @@ public class MenueUI : MonoBehaviour
 
             if (nameField.text != null)
             {
-                PhotonNetwork.LocalPlayer.NickName = nameField.text;
                 PhotonManagerExample.instance.username = nameField.text;
+                PhotonNetwork.NickName = nameField.text;
             }
 
             PhotonManagerExample.instance.JoinGame();

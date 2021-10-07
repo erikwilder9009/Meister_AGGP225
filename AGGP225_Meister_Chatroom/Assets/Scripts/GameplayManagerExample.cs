@@ -29,7 +29,7 @@ public class GameplayManagerExample : MonoBehaviour
             if (playerPrefab)
             {
                 PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity).GetComponent<PlayerController>();
-                gameObject.GetPhotonView().RPC("ChangeColor", RpcTarget.AllBuffered);
+                gameObject.GetPhotonView().RPC("ChangeColor", RpcTarget.AllBuffered, PhotonManagerExample.instance.playerColor.r, PhotonManagerExample.instance.playerColor.g, PhotonManagerExample.instance.playerColor.b);
             }
             else
             {
@@ -48,9 +48,9 @@ public class GameplayManagerExample : MonoBehaviour
     }
 
     [PunRPC]
-    void ChangeColor()
+    void ChangeColor(float r, float g, float b)
     {
-        playerMat.color = PhotonManagerExample.instance.playerColor;
+        playerMat.color = new Color(r, g, b);
     }
 
 }

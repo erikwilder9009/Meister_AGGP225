@@ -26,9 +26,8 @@ public class PlayerController : MonoBehaviour
     {
         health = 20;
         gameObject.GetPhotonView().RPC("TakeDamage", RpcTarget.AllBuffered, 0);
-        //username = PhotonManagerExample.instance.username;
-        //ui.nameText.text = username;
-        //gameObject.GetPhotonView().RPC("UpdateUI", RpcTarget.AllBuffered, PhotonManagerExample.instance.username);
+        gameObject.GetPhotonView().RPC("UpdateUI", RpcTarget.AllBuffered);
+        
 
         photonView = gameObject.GetPhotonView();
         if (gameObject.GetPhotonView().IsMine)
@@ -36,15 +35,6 @@ public class PlayerController : MonoBehaviour
             rb = gameObject.GetComponent<Rigidbody>();
             grounded = true;
             PlayerCamera.enabled = true;
-        }
-
-        if (ui != null)
-        {
-            ui.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
-        }
-        else
-        {
-            Debug.Log("No ui on PlayerController");
         }
     }
 
@@ -65,7 +55,7 @@ public class PlayerController : MonoBehaviour
                 Destroy(bullet, 2);
             }
             rb.velocity = transform.forward * (Input.GetAxis("Vertical") * 10) + new Vector3(0, rb.velocity.y, 0) + transform.right * (Input.GetAxis("Horizontal") * 10);
-            gameObject.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 5, 0));
+            transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 5, 0));
             head.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * 5, 0, 0));
         }
     }
@@ -105,9 +95,9 @@ public class PlayerController : MonoBehaviour
 
 
     [PunRPC]
-    void UpdateUI(string _username)
+    void UpdateUI()
     {
-        ui.nameText.text = _username;
+        ui.nameText.text = gameObject.GetPhotonView().Owner.NickName;
     }
 
 
