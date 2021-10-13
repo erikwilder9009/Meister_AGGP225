@@ -839,7 +839,6 @@ MonoBehaviour:
   username: 
   health: 0
   ui: {fileID: 1391030815002606006}
-  photonView: {fileID: 6431216375223522909}
 --- !u!114 &6431216375223522909
 MonoBehaviour:
   m_ObjectHideFlags: 0

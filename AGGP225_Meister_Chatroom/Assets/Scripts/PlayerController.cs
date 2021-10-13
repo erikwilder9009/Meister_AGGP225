@@ -20,16 +20,12 @@ public class PlayerController : MonoBehaviour
 
     public PlayerUI ui;
 
-    public PhotonView photonView;
-
     void Start()
     {
         health = 20;
         gameObject.GetPhotonView().RPC("TakeDamage", RpcTarget.AllBuffered, 0);
         gameObject.GetPhotonView().RPC("UpdateUI", RpcTarget.AllBuffered);
-        
 
-        photonView = gameObject.GetPhotonView();
         if (gameObject.GetPhotonView().IsMine)
         {
             rb = gameObject.GetComponent<Rigidbody>();

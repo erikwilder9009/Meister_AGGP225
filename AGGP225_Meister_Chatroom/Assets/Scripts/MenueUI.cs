@@ -68,23 +68,25 @@ public class MenueUI : MonoBehaviour
         }
     }
 
-    public void JoinGame()
+    public void JoinLobby()
     {
         if (!string.IsNullOrEmpty(nameField.text))
         {
-            Debug.Log("[MenueUI][JoinGame] Joining Game ");
+            Debug.Log("[MenueUI][JoinGame] Joining Lobby ");
+            PhotonManagerExample.instance.username = nameField.text;
+            PhotonNetwork.NickName = nameField.text;
 
-            if (nameField.text != null)
-            {
-                PhotonManagerExample.instance.username = nameField.text;
-                PhotonNetwork.NickName = nameField.text;
-            }
-
-            PhotonManagerExample.instance.JoinGame();
+            PhotonManagerExample.instance.LoadLobby();
         }
         else
         {
             Debug.Log("[MenueUI][JoinGame] No Username ");
         }
+    }
+
+
+    public void QuiteGame()
+    {
+        Application.Quit();
     }
 }

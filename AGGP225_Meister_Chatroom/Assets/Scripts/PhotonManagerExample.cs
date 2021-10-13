@@ -10,7 +10,7 @@ using Photon.Realtime;
 public class PhotonManagerExample : MonoBehaviourPunCallbacks
 {
     [SerializeField]
-    int PlayersInGame;
+    private byte maxPlayersPerRoom = 4;
 
     string gameVersion = "1";
     RoomOptions roomOptions = new RoomOptions();
@@ -19,8 +19,7 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
     public string username;
     public Color playerColor;
 
-    public PhotonView photonView;
-
+    public GameObject ConnectedUI;
 
 
     public static PhotonManagerExample instance { get; private set; }
@@ -28,7 +27,6 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
 
     void Awake()
     {
-        photonView = gameObject.GetComponent <PhotonView> ();
         PhotonNetwork.AutomaticallySyncScene = true;
         roomOptions.MaxPlayers = 4;
     }
@@ -46,8 +44,9 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
             DontDestroyOnLoad(this);
         }
 
-
         Connect();
+
+
     }
 
 
@@ -72,16 +71,17 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("[PhotonManager][ConnectedToMaster]");
+        ConnectedUI.SetActive(true);
     }
     public void CreateRoom()
     {
         Debug.Log("[PhotonManager][CreatingRoom] Trying to create room....");
-        PhotonNetwork.CreateRoom(null, roomOptions);
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
     }
     public void CreateRoom(string Name)
     {
         Debug.Log("[PhotonManager][CreatingRoom] Trying to create room : " + Name);
-        PhotonNetwork.CreateRoom(Name, roomOptions);
+        PhotonNetwork.CreateRoom(Name, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
     }
 
     public override void OnCreatedRoom()
@@ -106,6 +106,7 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
 
     public void JoinGame()
     {
+        Debug.Log("[PhotonManager][JoinGame]");
         gameplayLevel = "FPS";
         PhotonNetwork.JoinRandomRoom();
     }
@@ -114,6 +115,11 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
     {
         gameplayLevel = "MainMenu";
         PhotonNetwork.LeaveRoom();
+    }
+    public void LoadLobby()
+    {
+        gameplayLevel = "Chatroom";
+        PhotonNetwork.JoinRandomRoom();
     }
 
     public override void OnLeftRoom()
@@ -136,13 +142,6 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
         Debug.Log("[PhotonManager][JoinRoomFailed] " + message);
         CreateRoom();
     }
-
-
-    //[PunRPC]
-    //void UsernameRPC(string _username, string _chat)
-    //{
-    //    PhotonChatManager.instance.chatBox.text += "\n" + _username + " :  " + _chat;
-    //}
 
 
     public void SetNickname(string nickname)
