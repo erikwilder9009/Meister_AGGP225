@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 using Photon;
 using Photon.Pun;
@@ -9,11 +10,18 @@ using Photon.Realtime;
 
 public class GameplayManagerExample : MonoBehaviour
 {
+    public float timerLimit;
+    public Text timerDisplay;
+    bool timerDone;
+
+    public List<GameObject> Spawns;
+
     public static GameplayManagerExample instance { get; private set; }
     public GameObject playerPrefab;
     public Material playerMat;
     private void Start()
     {
+        timerDone = false;
         instance = this;
         Cursor.visible = false;
 
@@ -28,7 +36,7 @@ public class GameplayManagerExample : MonoBehaviour
         {
             if (playerPrefab)
             {
-                PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity).GetComponent<PlayerController>();
+                PhotonNetwork.Instantiate(playerPrefab.name, Spawns[PhotonNetwork.LocalPlayer.ActorNumber - 1].transform.position, Quaternion.identity).GetComponent<PlayerController>();
                 gameObject.GetPhotonView().RPC("ChangeColor", RpcTarget.AllBuffered, PhotonManagerExample.instance.playerColor.r, PhotonManagerExample.instance.playerColor.g, PhotonManagerExample.instance.playerColor.b);
             }
             else
@@ -44,6 +52,15 @@ public class GameplayManagerExample : MonoBehaviour
         {
             Cursor.visible = true;
             PhotonManagerExample.instance.LoadMenue();
+        }
+
+        timerLimit -= 1 * Time.deltaTime;
+        timerDisplay.text = timerLimit.ToString("F0");
+
+        if(timerLimit <= 0 && !timerDone)
+        {
+            PhotonNetwork.LoadLevel("Chatroom");
+            timerDone = true;
         }
     }
 

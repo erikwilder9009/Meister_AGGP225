@@ -19,9 +19,19 @@ public class PlayerController : MonoBehaviour
     public int health;
 
     public PlayerUI ui;
+    
+    AudioSource audioS;
+    public AudioClip shot;
+    public AudioClip step;
+    bool walking;
+    float walkdelay = .5f;
+    float walkset;
+    public AudioClip ouch;
 
     void Start()
     {
+        walkset = Time.time;
+        audioS = gameObject.GetComponent<AudioSource>();
         health = 20;
         gameObject.GetPhotonView().RPC("TakeDamage", RpcTarget.AllBuffered, 0);
         gameObject.GetPhotonView().RPC("UpdateUI", RpcTarget.AllBuffered);
@@ -38,7 +48,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameObject.GetPhotonView().IsMine)
+        if (gameObject.GetPhotonView().IsMine)
         {
             if (Input.GetButtonDown("Jump") && grounded)
             {
@@ -49,10 +59,41 @@ public class PlayerController : MonoBehaviour
             {
                 GameObject bullet = PhotonNetwork.Instantiate("CannonBall", bulletSpawn.transform.position, bulletSpawn.transform.rotation);
                 Destroy(bullet, 2);
+                audioS.PlayOneShot(shot);
             }
-            rb.velocity = transform.forward * (Input.GetAxis("Vertical") * 10) + new Vector3(0, rb.velocity.y, 0) + transform.right * (Input.GetAxis("Horizontal") * 10);
+            if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
+            {
+                if(Input.GetButton("Fire3"))
+                {
+                    rb.velocity = (transform.forward * (Input.GetAxis("Vertical") * 10) + new Vector3(0, rb.velocity.y, 0) + transform.right * (Input.GetAxis("Horizontal") * 10)) * 3;
+                }
+                else
+                {
+                    rb.velocity = transform.forward * (Input.GetAxis("Vertical") * 10) + new Vector3(0, rb.velocity.y, 0) + transform.right * (Input.GetAxis("Horizontal") * 10);
+                }
+                walking = true;
+            }
+            else
+            {
+                walking = false;
+            }
             transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 5, 0));
             head.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * 5, 0, 0));
+
+            if(walking && Time.time > walkset + walkdelay)
+            {
+                walkset = Time.time;
+                audioS.PlayOneShot(step);
+            }
+
+
+
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+                audioS.PlayOneShot(ouch);
+                PhotonNetwork.LoadLevel("Chatroom");
+            }
         }
     }
 

@@ -10,21 +10,30 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 {
     public List<Text> playernames;
 
+    bool joining;
+    bool done;
+    float joinLimit = 10;
+    public Text joinDisplay;
+
     private void Awake()
+    {
+        joining = false;
+        done = false;
+        joinLimit = 10;
+        joinDisplay.gameObject.SetActive(false);
+    }
+
+    private void Update()
     {
         foreach (Player p in PhotonNetwork.PlayerList)
         {
             playernames[p.ActorNumber - 1].text = p.NickName;
         }
-        gameObject.GetPhotonView().RPC("UsernameRPC", RpcTarget.AllBuffered, PhotonNetwork.NickName);
-    }
 
-    private void Update()
-    {
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 4 && joining == false)
         {
             Debug.Log("[LobbyManager][JoinGame] all players in lobby");
-            JoinGame();
+            joining = true;
         }
         if (PhotonNetwork.CurrentRoom.PlayerCount > 4)
         {
@@ -33,6 +42,20 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             foreach(Player p in PhotonNetwork.PlayerList)
             {
                 Debug.Log(p);
+            }
+        }
+
+
+        if (joining && !done)
+        {
+            joinDisplay.gameObject.SetActive(true);
+            joinLimit -= 1 * Time.deltaTime;
+            joinDisplay.text = joinLimit.ToString("F0");
+
+            if (joinLimit <= 0)
+            {
+                JoinGame();
+                done = true;
             }
         }
     }

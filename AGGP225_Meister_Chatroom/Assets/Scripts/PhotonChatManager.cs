@@ -13,6 +13,7 @@ public class PhotonChatManager : MonoBehaviour
 {
     public static PhotonChatManager instance;
     public InputField chatInput;
+    public Text usernameText;
     public Text chatBox;
     string username;
     public Color color;
@@ -25,6 +26,7 @@ public class PhotonChatManager : MonoBehaviour
         instance = this;
         username = PhotonManagerExample.instance.username;
         color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        usernameText.text = PhotonNetwork.NickName;
     }
     private void Update()
     {
@@ -64,8 +66,6 @@ public class PhotonChatManager : MonoBehaviour
     {
         PhotonChatManager.instance.chatBox.text += "\n" + _username + " :  " + _chat;
     }
-
-
     public void LoadMenue()
     {
         PhotonManagerExample.instance.LoadMenue();
