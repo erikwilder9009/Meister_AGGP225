@@ -17,6 +17,7 @@ public class MenueUI : MonoBehaviour
 
     public GameObject hatHolder;
     public List<GameObject> hats;
+    public GameObject hat;
     int hatsIndex;
 
     Color color;
@@ -34,7 +35,17 @@ public class MenueUI : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
-            
+            Destroy(hat);
+            if(hatsIndex == hats.Count)
+            {
+                hatsIndex = 0;
+            }
+            else
+            {
+                hatsIndex++;
+            }
+            hat = Instantiate(hats[hatsIndex], hatHolder.transform.position, hatHolder.transform.rotation); 
+            hat.transform.parent = hatHolder.transform;
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
