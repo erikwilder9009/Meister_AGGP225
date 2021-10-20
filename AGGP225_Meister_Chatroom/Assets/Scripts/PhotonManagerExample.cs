@@ -17,7 +17,7 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
     static string gameplayLevel = "Game Level";
 
     public string username;
-    public Color playerColor;
+    public Material playerMat;
 
     public GameObject ConnectedUI;
 
@@ -147,5 +147,13 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
     public void SetNickname(string nickname)
     {
         gameObject.GetPhotonView().Owner.NickName = nickname;
+    }
+
+
+
+    [PunRPC]
+    void ChangeColor(float r, float g, float b)
+    {
+        playerMat.color = new Color(r, g, b);
     }
 }

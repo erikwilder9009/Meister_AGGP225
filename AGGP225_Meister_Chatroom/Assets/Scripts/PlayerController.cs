@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody rb;
     public GameObject head;
-    public GameObject bullet;
+    GameObject bullet;
     public GameObject bulletSpawn;
     bool grounded;
     public Camera PlayerCamera;
@@ -28,11 +28,15 @@ public class PlayerController : MonoBehaviour
     float walkset;
     public AudioClip ouch;
 
+
+    bool holdingBall;
+
+
     void Start()
     {
         walkset = Time.time;
         audioS = gameObject.GetComponent<AudioSource>();
-        health = 20;
+        health = 3;
         gameObject.GetPhotonView().RPC("TakeDamage", RpcTarget.AllBuffered, 0);
         gameObject.GetPhotonView().RPC("UpdateUI", RpcTarget.AllBuffered);
 
@@ -52,14 +56,17 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump") && grounded)
             {
-                rb.AddForce(transform.up * 300);
+                rb.AddForce(transform.up * 200);
                 grounded = false;
             }
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && holdingBall)
             {
-                GameObject bullet = PhotonNetwork.Instantiate("CannonBall", bulletSpawn.transform.position, bulletSpawn.transform.rotation);
-                Destroy(bullet, 2);
+                Debug.Log("throw");
+                bullet.transform.parent = null;
+                bullet.GetComponent<Ball>().enabled = true;
+                bullet.GetComponent<Rigidbody>().isKinematic = false;
                 audioS.PlayOneShot(shot);
+                holdingBall = false;
             }
             if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
             {
@@ -100,9 +107,32 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Bullet")
+        if (other.gameObject.GetComponent<Ball>())
         {
             gameObject.GetPhotonView().RPC("TakeDamage", RpcTarget.AllBuffered, 1);
+            PhotonNetwork.Destroy(other.gameObject);
+        }
+        if (other.gameObject.GetComponent<ballPickup>() && !holdingBall)
+        {
+            holdingBall = true;
+            bullet = PhotonNetwork.Instantiate("BasicBall", bulletSpawn.transform.position, bulletSpawn.transform.rotation);
+            bullet.transform.parent = bulletSpawn.transform;
+            PhotonNetwork.Destroy(other.gameObject);
+        }
+        if (other.gameObject.GetComponent<seekerballPickup>() && !holdingBall)
+        {
+            holdingBall = true;
+            bullet = PhotonNetwork.Instantiate("SeekerBall", bulletSpawn.transform.position, bulletSpawn.transform.rotation);
+            bullet.transform.parent = bulletSpawn.transform;
+            PhotonNetwork.Destroy(other.gameObject);
+        }
+        if (other.gameObject.GetComponent<basicPickup>())
+        {
+            if(health < 3)
+            {
+                health += 1; 
+                gameObject.GetPhotonView().RPC("TakeDamage", RpcTarget.AllBuffered, 0);
+            }
             PhotonNetwork.Destroy(other.gameObject);
         }
     }

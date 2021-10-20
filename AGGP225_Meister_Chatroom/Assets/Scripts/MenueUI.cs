@@ -25,7 +25,8 @@ public class MenueUI : MonoBehaviour
         {
             color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
             colorSelector.color = color;
-            PhotonManagerExample.instance.playerColor = color;
+            PhotonManagerExample.instance.playerMat.color = color;
+            //PhotonManagerExample.instance.gameObject.GetPhotonView().RPC("ChangeColor", RpcTarget.AllBuffered, color.r, color.g, color.b);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -83,7 +84,6 @@ public class MenueUI : MonoBehaviour
             Debug.Log("[MenueUI][JoinGame] No Username ");
         }
     }
-
 
     public void QuiteGame()
     {

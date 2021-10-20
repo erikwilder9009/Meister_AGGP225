@@ -18,7 +18,6 @@ public class GameplayManagerExample : MonoBehaviour
 
     public static GameplayManagerExample instance { get; private set; }
     public GameObject playerPrefab;
-    public Material playerMat;
     private void Start()
     {
         timerDone = false;
@@ -37,7 +36,6 @@ public class GameplayManagerExample : MonoBehaviour
             if (playerPrefab)
             {
                 PhotonNetwork.Instantiate(playerPrefab.name, Spawns[PhotonNetwork.LocalPlayer.ActorNumber - 1].transform.position, Quaternion.identity).GetComponent<PlayerController>();
-                gameObject.GetPhotonView().RPC("ChangeColor", RpcTarget.AllBuffered, PhotonManagerExample.instance.playerColor.r, PhotonManagerExample.instance.playerColor.g, PhotonManagerExample.instance.playerColor.b);
             }
             else
             {
@@ -63,11 +61,4 @@ public class GameplayManagerExample : MonoBehaviour
             timerDone = true;
         }
     }
-
-    [PunRPC]
-    void ChangeColor(float r, float g, float b)
-    {
-        playerMat.color = new Color(r, g, b);
-    }
-
 }
