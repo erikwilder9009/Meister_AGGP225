@@ -50,20 +50,14 @@ public class PhotonChatManager : MonoBehaviour
 
     public void SendChat()
     {
-        if (PhotonManagerExample.instance && PhotonManagerExample.instance.gameObject.GetPhotonView())
-        {
-            gameObject.GetPhotonView().RPC("ChatRPC", RpcTarget.AllBuffered, username, chatInput.text);
-        }
-        else
-        {
-            Debug.Log("[PhotonChatManager] PhotonChatManagerExample has no PhotonView");
-        }
+        gameObject.GetPhotonView().RPC("ChatRPC", RpcTarget.AllBuffered, username, chatInput.text);
         chatInput.text = "";
     }
 
     [PunRPC]
     void ChatRPC(string _username, string _chat)
     {
+        Debug.Log("\n" + _username + " :  " + _chat);
         PhotonChatManager.instance.chatBox.text += "\n" + _username + " :  " + _chat;
     }
     public void LoadMenue()

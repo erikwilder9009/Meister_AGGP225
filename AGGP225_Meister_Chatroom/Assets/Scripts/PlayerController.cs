@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     bool grounded;
     public Camera PlayerCamera;
 
+    public GameObject hatHolder;
+
     public string username;
     public int health;
 
@@ -85,9 +87,29 @@ public class PlayerController : MonoBehaviour
                 walking = false;
             }
             transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 5, 0));
-            head.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * 5, 0, 0));
 
-            if(walking && Time.time > walkset + walkdelay)
+
+            //Debug.Log(head.transform.localEulerAngles.x);
+
+            head.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * 5, 0, 0));
+            if (head.transform.localEulerAngles.x >= 270 || head.transform.localEulerAngles.x <= 60)
+            {
+                //Debug.Log("moving :: " + -Input.GetAxis("Mouse Y"));
+            }
+
+            //if(head.transform.localEulerAngles.x < 270)
+            {
+                //Debug.Log("high max");
+                head.transform.localEulerAngles.Set(270,0,0);
+            }
+
+            //if (head.transform.localEulerAngles.x > 60)
+            {
+                //Debug.Log("low max");
+                head.transform.localEulerAngles.Set(60, 0, 0);
+            }
+
+            if (walking && Time.time > walkset + walkdelay)
             {
                 walkset = Time.time;
                 audioS.PlayOneShot(step);

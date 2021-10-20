@@ -15,6 +15,10 @@ public class MenueUI : MonoBehaviour
     public Text nameField;
     public Text roomField;
 
+    public GameObject hatHolder;
+    public List<GameObject> hats;
+    int hatsIndex;
+
     Color color;
     public Image colorSelector;
 
@@ -27,6 +31,10 @@ public class MenueUI : MonoBehaviour
             colorSelector.color = color;
             PhotonManagerExample.instance.playerMat.color = color;
             //PhotonManagerExample.instance.gameObject.GetPhotonView().RPC("ChangeColor", RpcTarget.AllBuffered, color.r, color.g, color.b);
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))

@@ -1793,30 +1793,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1758101827}
     m_Modifications:
-    - target: {fileID: 7966284688555755601, guid: c729ad7a626fdb541b2fe7c44ce4e655, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 380.27
-      objectReference: {fileID: 0}
-    - target: {fileID: 7966284688555755601, guid: c729ad7a626fdb541b2fe7c44ce4e655, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 423.1459
-      objectReference: {fileID: 0}
-    - target: {fileID: 7966284688555755601, guid: c729ad7a626fdb541b2fe7c44ce4e655, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.0011959
-      objectReference: {fileID: 0}
-    - target: {fileID: 7966284688555755601, guid: c729ad7a626fdb541b2fe7c44ce4e655, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 30.9281
-      objectReference: {fileID: 0}
     - target: {fileID: 7966284690334892312, guid: c729ad7a626fdb541b2fe7c44ce4e655, type: 3}
       propertyPath: sceneViewId
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7966284690334892313, guid: c729ad7a626fdb541b2fe7c44ce4e655, type: 3}
-      propertyPath: Username
-      value: 
-      objectReference: {fileID: 1769047944}
     - target: {fileID: 7966284690334892313, guid: c729ad7a626fdb541b2fe7c44ce4e655, type: 3}
       propertyPath: usernameText
       value: 
