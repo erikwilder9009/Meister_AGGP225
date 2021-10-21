@@ -75,9 +75,9 @@
   <ItemGroup>
     <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.xml" />
     <None Include="Assets\Photon\PhotonUnityNetworking\changelog.txt" />
-    <None Include="Assets\DANKIE\UltimateHatPack\Party\_Shared\Shaders\DankDoubleSided.shader" />
+    <None Include="Assets\AddOns\DANKIE\UltimateHatPack\Party\_Shared\Shaders\DankDoubleSided.shader" />
     <None Include="Assets\Photon\PhotonLibs\WebSocket\websocket-sharp.dll" />
-    <None Include="Assets\DANKIE\UltimateHatPack\Party\Readme_DANKIE-UltimateHatCollection.txt" />
+    <None Include="Assets\AddOns\DANKIE\UltimateHatPack\Party\Readme_DANKIE-UltimateHatCollection.txt" />
     <None Include="Assets\Photon\PhotonLibs\changes-library.txt" />
     <None Include="Assets\Photon\PhotonUnityNetworking\readme.txt" />
     <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll" />

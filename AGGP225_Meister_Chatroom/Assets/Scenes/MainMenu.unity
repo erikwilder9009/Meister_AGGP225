@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 92593779}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.33, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6912855656526487802}
@@ -461,7 +461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
@@ -550,7 +550,29 @@ MonoBehaviour:
   roomField: {fileID: 799986150}
   hatHolder: {fileID: 92593779}
   hats:
-  - {fileID: 140850, guid: 15f43343ba0a60e47a63d28496373c3f, type: 3}
+  - {fileID: 6226048776739274279, guid: 0ff1ceaed8b01c64690e873f375d8f82, type: 3}
+  - {fileID: 2588253811108988909, guid: ea4908eab5d5d9a4b8524f2edac07453, type: 3}
+  - {fileID: 1351077735428644675, guid: f95e974c67bec5547a6b2d05a266b609, type: 3}
+  - {fileID: 2818112475367321601, guid: 96d290f03e378434db8c9cef4a8dc71d, type: 3}
+  - {fileID: 6261861078773341317, guid: 75af3014ed035da43b2f625835fecd30, type: 3}
+  - {fileID: 6990344604377269721, guid: 5ede350c232050e46bd17c82b18a43a2, type: 3}
+  - {fileID: 8859144757962983914, guid: 85993ef77a0614f47a10796ba8fbd689, type: 3}
+  - {fileID: 4207713805659853340, guid: d5747fe3469512c4b8f2482d2561b4f6, type: 3}
+  - {fileID: 1973476875248055223, guid: 040f78ace1930b046a11b041a89f932e, type: 3}
+  - {fileID: 4776114627179832346, guid: 787c06609ccba264d9a990632ce877e0, type: 3}
+  - {fileID: 6585491182953518433, guid: eba45ade969cc5948840a81f10fc9083, type: 3}
+  - {fileID: 956441681138371344, guid: 8d070e406fcdaa04bb7656911ecbcb80, type: 3}
+  - {fileID: 8397365885024360008, guid: ac5c8adc64af72d41a0d565dd3f4bf8f, type: 3}
+  - {fileID: 8031746077468094050, guid: 17514b9b0f90abb4ba5371b8580c6573, type: 3}
+  - {fileID: 6401106079211149860, guid: 9d7f0ac1f096d6b4093898dbb8e02d3f, type: 3}
+  - {fileID: 5097107766553145394, guid: 897879f90f961f348b11149ea17546f0, type: 3}
+  - {fileID: 3024970834335933381, guid: 15937fd62db86374a9c1297566d3bf11, type: 3}
+  - {fileID: 2186238564555758739, guid: 0ecd472fc7d94af42aeb004f9664edab, type: 3}
+  - {fileID: 8268449606768557573, guid: e523e14047bd5224aab0e1b66d2d07ba, type: 3}
+  - {fileID: 2046884207835705103, guid: 0ace78b04757eb541ba822f0ef304f43, type: 3}
+  - {fileID: 2914053668878097511, guid: 8afb9df737d4a684488758c018cf8f54, type: 3}
+  - {fileID: 5704637566803171109, guid: c92213b63fe233f4bbea32a3dcc01ed1, type: 3}
+  hat: {fileID: 0}
   colorSelector: {fileID: 1830667037}
 --- !u!1 &342855171
 GameObject:

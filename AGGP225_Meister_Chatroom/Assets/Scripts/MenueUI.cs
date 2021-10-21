@@ -25,6 +25,7 @@ public class MenueUI : MonoBehaviour
 
     private void Update()
     {
+        Cursor.visible = true;
         //Change the local color
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -36,7 +37,7 @@ public class MenueUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             Destroy(hat);
-            if(hatsIndex == hats.Count)
+            if(hatsIndex == hats.Count - 1)
             {
                 hatsIndex = 0;
             }
@@ -44,13 +45,12 @@ public class MenueUI : MonoBehaviour
             {
                 hatsIndex++;
             }
-            hat = Instantiate(hats[hatsIndex], hatHolder.transform.position, hatHolder.transform.rotation); 
-            hat.transform.parent = hatHolder.transform;
-        }
+            hat = Instantiate(hats[hatsIndex], hatHolder.transform.position, hatHolder.transform.rotation, hatHolder.transform);
+            hatHolder.transform.localPosition = hats[hatsIndex].transform.position;
+            }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Cursor.visible = true;
             Application.Quit();
         }
     }

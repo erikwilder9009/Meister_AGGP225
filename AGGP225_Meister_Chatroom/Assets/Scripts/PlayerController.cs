@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody rb;
     public GameObject head;
+    float headRot;
+
     GameObject bullet;
     public GameObject bulletSpawn;
     bool grounded;
@@ -89,25 +91,22 @@ public class PlayerController : MonoBehaviour
             transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 5, 0));
 
 
-            //Debug.Log(head.transform.localEulerAngles.x);
 
-            head.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * 5, 0, 0));
-            if (head.transform.localEulerAngles.x >= 270 || head.transform.localEulerAngles.x <= 60)
+            headRot -= Input.GetAxis("Mouse Y");
+            if(headRot > -100 && headRot < 40)
             {
-                //Debug.Log("moving :: " + -Input.GetAxis("Mouse Y"));
+                head.transform.localEulerAngles = new Vector3(headRot, 0, 0);
+            }
+            if(headRot <-100)
+            {
+                headRot = -99.9f;
+            }
+            if (headRot > 60)
+            {
+                headRot = 39.9f;
             }
 
-            //if(head.transform.localEulerAngles.x < 270)
-            {
-                //Debug.Log("high max");
-                head.transform.localEulerAngles.Set(270,0,0);
-            }
 
-            //if (head.transform.localEulerAngles.x > 60)
-            {
-                //Debug.Log("low max");
-                head.transform.localEulerAngles.Set(60, 0, 0);
-            }
 
             if (walking && Time.time > walkset + walkdelay)
             {
