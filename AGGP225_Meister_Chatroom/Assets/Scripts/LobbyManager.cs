@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 using Photon.Pun;
 using Photon.Realtime;
@@ -63,9 +64,17 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void JoinGame()
     {
         Debug.Log("[LobbyManager][JoinGame] joining");
+        Debug.Log(SceneManager.GetActiveScene().name);
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.LoadLevel("FPS");
+            if (SceneManager.GetActiveScene().name == "ChatRoom")
+            {
+                PhotonNetwork.LoadLevel("FPS");
+            }
+            if(SceneManager.GetActiveScene().name == "TeamChatRoom")
+            {
+                PhotonNetwork.LoadLevel("TeamArena");
+            }
         }
     }
 

@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FPS.unity
     guid: 30d75f763898f3d4782467886d919ca7
+  - enabled: 1
+    path: Assets/Scenes/TeamArena.unity
+    guid: fc3ba007e29c5d64895f55d63c1c3218
+  - enabled: 1
+    path: Assets/Scenes/TeamChatRoom.unity
+    guid: 49ce8e15c9104424997e69faec36f1c6
   m_configObjects: {}

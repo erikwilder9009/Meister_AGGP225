@@ -35,9 +35,13 @@ public class PlayerController : MonoBehaviour
 
     bool holdingBall;
 
+    int lives;
+
+    int gameMode; //1=deathmatch, 2=team deathmatch, 3=normal team match
 
     void Start()
     {
+        lives = 3;
         walkset = Time.time;
         audioS = gameObject.GetComponent<AudioSource>();
         health = 3;
@@ -60,23 +64,26 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump") && grounded)
             {
-                rb.AddForce(transform.up * 200);
+                rb.AddForce(transform.up * 500);
                 grounded = false;
             }
+
+
             if (Input.GetButtonDown("Fire1") && holdingBall)
             {
-                Debug.Log("throw");
                 bullet.transform.parent = null;
                 bullet.GetComponent<Ball>().enabled = true;
                 bullet.GetComponent<Rigidbody>().isKinematic = false;
                 audioS.PlayOneShot(shot);
                 holdingBall = false;
             }
+
+
             if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
             {
                 if(Input.GetButton("Fire3"))
                 {
-                    rb.velocity = (transform.forward * (Input.GetAxis("Vertical") * 10) + new Vector3(0, rb.velocity.y, 0) + transform.right * (Input.GetAxis("Horizontal") * 10)) * 3;
+                    rb.velocity = (transform.forward * (Input.GetAxis("Vertical") * 20) + new Vector3(0, rb.velocity.y, 0) + transform.right * (Input.GetAxis("Horizontal") * 15));
                 }
                 else
                 {
@@ -116,11 +123,15 @@ public class PlayerController : MonoBehaviour
 
 
 
-            if (health <= 0)
+            if (health <= 0 && (gameMode == (1 | 2) || lives <= 0))
             {
-                Destroy(gameObject);
+                Destroy(gameObject); 
                 audioS.PlayOneShot(ouch);
                 PhotonNetwork.LoadLevel("Chatroom");
+            }
+            if(health <= 0 && gameMode == 3)
+            {
+                lives -= 1;
             }
         }
     }
@@ -128,11 +139,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Ball>())
-        {
-            gameObject.GetPhotonView().RPC("TakeDamage", RpcTarget.AllBuffered, 1);
-            PhotonNetwork.Destroy(other.gameObject);
-        }
+        
         if (other.gameObject.GetComponent<ballPickup>() && !holdingBall)
         {
             holdingBall = true;
@@ -164,6 +171,24 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             grounded = true;
+        }
+
+        if (collision.gameObject.GetComponent<Ball>())
+        {
+            Debug.Log("Ground Ball :: " + collision.gameObject.GetComponent<Ball>().live);
+            if (collision.gameObject.GetComponent<Ball>().live)
+            {
+                gameObject.GetPhotonView().RPC("TakeDamage", RpcTarget.AllBuffered, 1);
+                collision.gameObject.GetComponent<Ball>().live = false;
+            }
+            else
+            {
+                holdingBall = true;
+                bullet = PhotonNetwork.Instantiate("BasicBall", bulletSpawn.transform.position, bulletSpawn.transform.rotation);
+                bullet.transform.parent = bulletSpawn.transform;
+                PhotonNetwork.Destroy(collision.gameObject);
+            }
+
         }
     }
     private void OnCollisionStay(Collision collision)

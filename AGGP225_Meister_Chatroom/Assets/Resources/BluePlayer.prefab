@@ -754,6 +754,7 @@ MonoBehaviour:
   head: {fileID: 3295385113575211601}
   bulletSpawn: {fileID: 3295385114831228046}
   PlayerCamera: {fileID: 3295385113754088879}
+  hatHolder: {fileID: 0}
   username: 
   health: 0
   ui: {fileID: 1391030815002606006}

@@ -18,6 +18,9 @@ public class GameplayManagerExample : MonoBehaviour
 
     public static GameplayManagerExample instance { get; private set; }
     public GameObject playerPrefab;
+
+    int gameMode;
+
     private void Start()
     {
         timerDone = false;
@@ -60,5 +63,16 @@ public class GameplayManagerExample : MonoBehaviour
             PhotonNetwork.LoadLevel("Chatroom");
             timerDone = true;
         }
+    }
+
+
+    public void spawnPlayer()
+    {
+        PhotonNetwork.Instantiate(playerPrefab.name, Spawns[PhotonNetwork.LocalPlayer.ActorNumber - 1].transform.position, Quaternion.identity).GetComponent<PlayerController>();
+    }
+
+    public void leaveGame()
+    {
+        PhotonNetwork.LoadLevel("Chatroom");
     }
 }

@@ -104,6 +104,22 @@ public class MenueUI : MonoBehaviour
         }
     }
 
+    public void JoinTeamLobby()
+    {
+        if (!string.IsNullOrEmpty(nameField.text))
+        {
+            Debug.Log("[MenueUI][JoinGame] Joining Lobby ");
+            PhotonManagerExample.instance.username = nameField.text;
+            PhotonNetwork.NickName = nameField.text;
+
+            PhotonManagerExample.instance.LoadTeamLobby();
+        }
+        else
+        {
+            Debug.Log("[MenueUI][JoinGame] No Username ");
+        }
+    }
+
     public void QuiteGame()
     {
         Application.Quit();

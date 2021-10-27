@@ -6,6 +6,8 @@ using TMPro;
 
 using Photon.Pun;
 using Photon.Realtime;
+using Photon;
+using Photon.Chat;
 
 public class PhotonManagerExample : MonoBehaviourPunCallbacks
 {
@@ -20,8 +22,6 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
     public Material playerMat;
 
     public GameObject ConnectedUI;
-
-
     public static PhotonManagerExample instance { get; private set; }
 
 
@@ -119,7 +119,12 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
     public void LoadLobby()
     {
         gameplayLevel = "Chatroom";
-        PhotonNetwork.JoinRandomRoom();
+        PhotonNetwork.JoinOrCreateRoom("Lobby", null, null);
+    }
+    public void LoadTeamLobby()
+    {
+        gameplayLevel = "TeamChatroom";
+        PhotonNetwork.JoinOrCreateRoom("TeamLobby", null, null);
     }
 
     public override void OnLeftRoom()
