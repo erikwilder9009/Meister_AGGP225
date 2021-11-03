@@ -1271,7 +1271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6039675323621306929, guid: d3f3148adc6a80b4e8e93eb8f35c7cfb, type: 3}
       propertyPath: sceneViewId
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3f3148adc6a80b4e8e93eb8f35c7cfb, type: 3}
@@ -1647,7 +1647,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6039675323621306929, guid: d3f3148adc6a80b4e8e93eb8f35c7cfb, type: 3}
       propertyPath: sceneViewId
-      value: 1
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3f3148adc6a80b4e8e93eb8f35c7cfb, type: 3}

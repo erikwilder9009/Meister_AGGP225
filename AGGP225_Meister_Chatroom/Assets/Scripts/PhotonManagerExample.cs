@@ -20,6 +20,7 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
 
     public string username;
     public Material playerMat;
+    public GameObject playerHat;
 
     public GameObject ConnectedUI;
     public static PhotonManagerExample instance { get; private set; }

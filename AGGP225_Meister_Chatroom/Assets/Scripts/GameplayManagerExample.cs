@@ -18,6 +18,7 @@ public class GameplayManagerExample : MonoBehaviour
 
     public static GameplayManagerExample instance { get; private set; }
     public GameObject playerPrefab;
+    GameObject hat;
 
     int gameMode;
 
@@ -36,9 +37,15 @@ public class GameplayManagerExample : MonoBehaviour
 
         if(instance == this)
         {
+            Debug.Log(PhotonManagerExample.instance.playerHat.name + "<===========");
+            hat = PhotonManagerExample.instance.playerHat;
+            Debug.Log(hat.name + "<===========");
             if (playerPrefab)
             {
-                PhotonNetwork.Instantiate(playerPrefab.name, Spawns[PhotonNetwork.LocalPlayer.ActorNumber - 1].transform.position, Quaternion.identity).GetComponent<PlayerController>();
+                PlayerController character = PhotonNetwork.Instantiate(playerPrefab.name, Spawns[PhotonNetwork.LocalPlayer.ActorNumber - 1].transform.position, Quaternion.identity).GetComponent<PlayerController>(); 
+                hat = PhotonNetwork.Instantiate(hat.name, character.hatHolder.transform.position, character.hatHolder.transform.rotation);
+                character.hatHolder.transform.localPosition = hat.transform.position;
+                hat.transform.parent = character.hatHolder.transform;
             }
             else
             {

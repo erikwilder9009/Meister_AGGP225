@@ -47,7 +47,9 @@ public class MenueUI : MonoBehaviour
             }
             hat = Instantiate(hats[hatsIndex], hatHolder.transform.position, hatHolder.transform.rotation, hatHolder.transform);
             hatHolder.transform.localPosition = hats[hatsIndex].transform.position;
-            }
+            PhotonManagerExample.instance.playerHat = hat;
+            Debug.Log(PhotonManagerExample.instance.playerHat.name + "<==============");
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {

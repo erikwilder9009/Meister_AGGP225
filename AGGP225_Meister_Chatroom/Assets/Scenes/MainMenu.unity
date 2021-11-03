@@ -401,7 +401,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -200, y: 152}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &256113517
@@ -1397,7 +1397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1254350853
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2338,6 +2338,10 @@ PrefabInstance:
       propertyPath: OwnershipTransfer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2911348118335723542, guid: ed4b17f9ca577a84f8cf0e53b4fed0d8, type: 3}
+      propertyPath: playerHat
+      value: 
+      objectReference: {fileID: 2588253811108988909, guid: ea4908eab5d5d9a4b8524f2edac07453, type: 3}
     - target: {fileID: 2911348118335723542, guid: ed4b17f9ca577a84f8cf0e53b4fed0d8, type: 3}
       propertyPath: playerMat
       value: 
