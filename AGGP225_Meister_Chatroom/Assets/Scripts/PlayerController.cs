@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public GameObject head;
     float headRot;
 
-    GameObject bullet;
+    public GameObject bullet;
     public GameObject bulletSpawn;
     bool grounded;
     public Camera PlayerCamera;
@@ -184,9 +184,11 @@ public class PlayerController : MonoBehaviour
             else
             {
                 holdingBall = true;
-                bullet = PhotonNetwork.Instantiate("BasicBall", bulletSpawn.transform.position, bulletSpawn.transform.rotation);
+                bullet = collision.gameObject;
+                bullet.GetComponent<Ball>().enabled = true;
+                bullet.GetComponent<Rigidbody>().isKinematic = false;
+                bullet.transform.position = bulletSpawn.transform.position;
                 bullet.transform.parent = bulletSpawn.transform;
-                PhotonNetwork.Destroy(collision.gameObject);
             }
 
         }
