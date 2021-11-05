@@ -736,6 +736,10 @@
       <Project>{735E7A3E-9E6F-33BB-2149-8FB351F2E6FA}</Project>
       <Name>PhotonUnityNetworking.Utilities.Culling.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="OEBIF.csproj">
+      <Project>{A41F031E-296C-A43D-458E-225147CB9842}</Project>
+      <Name>OEBIF</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

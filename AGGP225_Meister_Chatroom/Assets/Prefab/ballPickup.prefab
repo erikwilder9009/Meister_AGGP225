@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2337741874446247386}
   - component: {fileID: 6004147781751326848}
   - component: {fileID: 6039675323621306929}
+  - component: {fileID: 4420334066700249486}
   - component: {fileID: 8763247291400645425}
   m_Layer: 0
   m_Name: ballPickup
@@ -128,10 +129,25 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 8763247291400645425}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &4420334066700249486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2337741874446247387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 1
+  eraseRenderer: 0
 --- !u!114 &8763247291400645425
 MonoBehaviour:
   m_ObjectHideFlags: 0

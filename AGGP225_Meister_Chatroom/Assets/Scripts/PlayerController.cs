@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using Photon.Realtime;
 using Photon.Pun;
 
+using cakeslice;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -57,14 +59,47 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    GameObject highlightObj;
+
     // Update is called once per frame
     void Update()
     {
+        RaycastHit hit;
+        if (Physics.Raycast(head.transform.position, head.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+        {
+            if(hit.transform.gameObject.GetComponent<cakeslice.Outline>())
+            {
+                highlightObj = hit.transform.gameObject;
+                highlightObj.transform.gameObject.GetComponent<cakeslice.Outline>().enabled = true;
+                Debug.DrawRay(head.transform.position, head.transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+                
+            }
+            else
+            {
+                if(highlightObj != hit.transform.gameObject && highlightObj !=null)
+                {
+                    highlightObj.transform.gameObject.GetComponent<cakeslice.Outline>().enabled = false;
+                }
+                Debug.DrawRay(head.transform.position, head.transform.TransformDirection(Vector3.forward) * hit.distance, Color.blue);
+                
+            }
+        }
+        else
+        {
+            if(highlightObj != null)
+            {
+                highlightObj.transform.gameObject.GetComponent<cakeslice.Outline>().enabled = false;
+            }
+            Debug.DrawRay(bulletSpawn.transform.position, bulletSpawn.transform.TransformDirection(Vector3.forward) * 1000, Color.red);
+        }
+
+
+
         if (gameObject.GetPhotonView().IsMine)
         {
             if (Input.GetButtonDown("Jump") && grounded)
             {
-                rb.AddForce(transform.up * 500);
+                rb.AddForce(transform.up * 750);
                 grounded = false;
             }
 
@@ -72,7 +107,8 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Fire1") && holdingBall)
             {
                 bullet.transform.parent = null;
-                bullet.GetComponent<Ball>().enabled = true;
+                bullet.GetComponent<Ball>().live = true;
+                bullet.GetComponent<Ball>().Throw();
                 bullet.GetComponent<Rigidbody>().isKinematic = false;
                 audioS.PlayOneShot(shot);
                 holdingBall = false;
@@ -175,7 +211,6 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.GetComponent<Ball>())
         {
-            Debug.Log("Ground Ball :: " + collision.gameObject.GetComponent<Ball>().live);
             if (collision.gameObject.GetComponent<Ball>().live)
             {
                 gameObject.GetPhotonView().RPC("TakeDamage", RpcTarget.AllBuffered, 1);
@@ -185,9 +220,9 @@ public class PlayerController : MonoBehaviour
             {
                 holdingBall = true;
                 bullet = collision.gameObject;
-                bullet.GetComponent<Ball>().enabled = true;
-                bullet.GetComponent<Rigidbody>().isKinematic = false;
+                bullet.GetComponent<Rigidbody>().isKinematic = true;
                 bullet.transform.position = bulletSpawn.transform.position;
+                bullet.transform.rotation = bulletSpawn.transform.rotation;
                 bullet.transform.parent = bulletSpawn.transform;
             }
 

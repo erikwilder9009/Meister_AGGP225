@@ -16,15 +16,11 @@ public class SeekerBall : Ball
             Debug.Log(Target.name);
         }
     }
-    public override void Update() 
+    void Update() 
     { 
         if(Target!=null)
         {
             transform.Translate(Vector3.MoveTowards(gameObject.transform.position, Target.transform.position, 1));
-        }
-        else
-        {
-            base.Update();
         }
     }
 

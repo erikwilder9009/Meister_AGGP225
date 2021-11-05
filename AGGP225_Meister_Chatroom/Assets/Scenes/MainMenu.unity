@@ -2341,7 +2341,7 @@ PrefabInstance:
     - target: {fileID: 2911348118335723542, guid: ed4b17f9ca577a84f8cf0e53b4fed0d8, type: 3}
       propertyPath: playerHat
       value: 
-      objectReference: {fileID: 2588253811108988909, guid: ea4908eab5d5d9a4b8524f2edac07453, type: 3}
+      objectReference: {fileID: 1973476875248055223, guid: 040f78ace1930b046a11b041a89f932e, type: 3}
     - target: {fileID: 2911348118335723542, guid: ed4b17f9ca577a84f8cf0e53b4fed0d8, type: 3}
       propertyPath: playerMat
       value: 
@@ -2639,7 +2639,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 6912855656526487949}
-  bulletSpawn: {fileID: 0}
+  bullet: {fileID: 0}
+  bulletSpawn: {fileID: 92593779}
   PlayerCamera: {fileID: 0}
   hatHolder: {fileID: 92593779}
   username: 

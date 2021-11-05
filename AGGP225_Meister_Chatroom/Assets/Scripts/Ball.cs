@@ -4,6 +4,8 @@ using UnityEngine;
 using Photon.Realtime;
 using Photon.Pun;
 
+using cakeslice;
+
 public class Ball : MonoBehaviour
 {
     public bool live;
@@ -11,18 +13,19 @@ public class Ball : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
-        live = true;
+        GetComponent<Outline>().enabled = false;
+
         rb = gameObject.GetComponent<Rigidbody>();
 
         Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), GameObject.Find("MiddleLine(wall)").GetComponent<Collider>(), true);
     }
 
-    // Update is called once per frame
-    public virtual void Update()
+    public void Throw()
     {
         if (gameObject.GetPhotonView().IsMine && live)
         {
-            rb.velocity += transform.forward * .5f;
+            Debug.Log("thrown :: " + transform.forward * 1000000000000000000f);
+            rb.AddForce(transform.forward * 1000000000000000000f);
         }
     }
 

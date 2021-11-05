@@ -15,6 +15,7 @@ public class PhotonChatManager : MonoBehaviour
     public InputField chatInput;
     public Text usernameText;
     public Text chatBox;
+    public Text aimingIndicator;
     string username;
     public Color color;
     bool chatSelected;
