@@ -22,10 +22,13 @@ public class Ball : MonoBehaviour
 
     public void Throw()
     {
-        if (gameObject.GetPhotonView().IsMine && live)
+        if (gameObject.GetPhotonView().IsMine && !live)
         {
-            Debug.Log("thrown :: " + transform.forward * 1000000000000000000f);
-            rb.AddForce(transform.forward * 1000000000000000000f);
+            live = true;
+            transform.parent = null;
+            rb.isKinematic = false;
+            rb.AddForce(transform.forward * 10000);
+            GetComponent<Collider>().enabled = true;
         }
     }
 

@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         {
             rb = gameObject.GetComponent<Rigidbody>();
             grounded = true;
-            PlayerCamera.enabled = true;
+            //PlayerCamera.enabled = true;
         }
     }
 
@@ -103,13 +103,9 @@ public class PlayerController : MonoBehaviour
                 grounded = false;
             }
 
-
             if (Input.GetButtonDown("Fire1") && holdingBall)
             {
-                bullet.transform.parent = null;
-                bullet.GetComponent<Ball>().live = true;
                 bullet.GetComponent<Ball>().Throw();
-                bullet.GetComponent<Rigidbody>().isKinematic = false;
                 audioS.PlayOneShot(shot);
                 holdingBall = false;
             }
@@ -149,15 +145,11 @@ public class PlayerController : MonoBehaviour
                 headRot = 39.9f;
             }
 
-
-
             if (walking && Time.time > walkset + walkdelay)
             {
                 walkset = Time.time;
                 audioS.PlayOneShot(step);
             }
-
-
 
             if (health <= 0 && (gameMode == (1 | 2) || lives <= 0))
             {
@@ -171,7 +163,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -201,7 +192,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Ground")
@@ -220,6 +210,7 @@ public class PlayerController : MonoBehaviour
             {
                 holdingBall = true;
                 bullet = collision.gameObject;
+                bullet.GetComponent<Collider>().enabled = false;
                 bullet.GetComponent<Rigidbody>().isKinematic = true;
                 bullet.transform.position = bulletSpawn.transform.position;
                 bullet.transform.rotation = bulletSpawn.transform.rotation;
