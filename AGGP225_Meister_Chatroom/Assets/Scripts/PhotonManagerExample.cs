@@ -37,6 +37,8 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+
+        Screen.fullScreen = !Screen.fullScreen;
         if (instance)
         {
             Destroy(this);
