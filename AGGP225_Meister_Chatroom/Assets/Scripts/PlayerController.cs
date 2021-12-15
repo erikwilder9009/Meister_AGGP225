@@ -10,6 +10,8 @@ using cakeslice;
 
 public class PlayerController : MonoBehaviour
 {
+    public int teamnum;
+
     Rigidbody rb;
     public GameObject head;
     float headRot;
@@ -97,6 +99,16 @@ public class PlayerController : MonoBehaviour
 
         if (gameObject.GetPhotonView().IsMine)
         {
+            if(Input.GetKeyUp(KeyCode.Q)&& grounded)
+            {
+                rb.AddForce((-transform.right * 1000) + (transform.up * 250));
+                grounded = false;
+            }
+            if (Input.GetKeyUp(KeyCode.E) && grounded)
+            {
+                rb.AddForce((transform.right * 1000) + (transform.up * 250));
+                grounded = false;
+            }
             if (Input.GetButtonDown("Jump") && grounded)
             {
                 rb.AddForce(transform.up * 750);
@@ -105,6 +117,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetButtonDown("Fire1") && holdingBall)
             {
+                bullet.GetComponent<Ball>().teamnum = teamnum;
                 bullet.GetComponent<Ball>().Throw();
                 audioS.PlayOneShot(shot);
                 holdingBall = false;
@@ -203,8 +216,11 @@ public class PlayerController : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<Ball>().live)
             {
-                gameObject.GetPhotonView().RPC("TakeDamage", RpcTarget.AllBuffered, 1);
-                collision.gameObject.GetComponent<Ball>().live = false;
+                if(teamnum == 0 || bullet.GetComponent<Ball>().teamnum != teamnum)
+                {
+                    gameObject.GetPhotonView().RPC("TakeDamage", RpcTarget.AllBuffered, 1);
+                    collision.gameObject.GetComponent<Ball>().live = false;
+                }
             }
             else
             {

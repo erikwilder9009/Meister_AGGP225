@@ -1153,8 +1153,8 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.2635676, g: 0, b: 0.31132078, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.54617727, g: 0.5220363, b: 0.9811321, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2339,9 +2339,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2911348118335723542, guid: ed4b17f9ca577a84f8cf0e53b4fed0d8, type: 3}
+      propertyPath: username
+      value: Q
+      objectReference: {fileID: 0}
+    - target: {fileID: 2911348118335723542, guid: ed4b17f9ca577a84f8cf0e53b4fed0d8, type: 3}
       propertyPath: playerHat
       value: 
-      objectReference: {fileID: 1973476875248055223, guid: 040f78ace1930b046a11b041a89f932e, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 2911348118335723542, guid: ed4b17f9ca577a84f8cf0e53b4fed0d8, type: 3}
       propertyPath: playerMat
       value: 

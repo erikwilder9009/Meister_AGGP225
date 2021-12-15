@@ -18,9 +18,11 @@ public class PhotonManagerExample : MonoBehaviourPunCallbacks
     RoomOptions roomOptions = new RoomOptions();
     static string gameplayLevel = "Game Level";
 
+    public bool teammatch;
+
     public string username;
     public Material playerMat;
-    public GameObject playerHat;
+    public string hatname;
 
     public GameObject ConnectedUI;
     public static PhotonManagerExample instance { get; private set; }

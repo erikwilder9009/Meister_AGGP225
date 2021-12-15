@@ -47,8 +47,8 @@ public class MenueUI : MonoBehaviour
             }
             hat = Instantiate(hats[hatsIndex], hatHolder.transform.position, hatHolder.transform.rotation, hatHolder.transform);
             hatHolder.transform.localPosition = hats[hatsIndex].transform.position;
-            PhotonManagerExample.instance.playerHat = hat;
-            Debug.Log(PhotonManagerExample.instance.playerHat.name + "<==============");
+            Debug.Log(hats[hatsIndex] + "<==============[MenueUI]");
+            PhotonManagerExample.instance.hatname = hats[hatsIndex].name;
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -92,6 +92,7 @@ public class MenueUI : MonoBehaviour
 
     public void JoinLobby()
     {
+        PhotonManagerExample.instance.teammatch = false;
         if (!string.IsNullOrEmpty(nameField.text))
         {
             Debug.Log("[MenueUI][JoinGame] Joining Lobby ");
@@ -108,6 +109,7 @@ public class MenueUI : MonoBehaviour
 
     public void JoinTeamLobby()
     {
+        PhotonManagerExample.instance.teammatch = true;
         if (!string.IsNullOrEmpty(nameField.text))
         {
             Debug.Log("[MenueUI][JoinGame] Joining Lobby ");

@@ -914,6 +914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0908bb4d65e0224ebd05b685f1e8be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teamnum: 0
   head: {fileID: 3295385113575211601}
   bullet: {fileID: 4410562953830427458, guid: df8f584e62c475d418bae824af66e7b5, type: 3}
   bulletSpawn: {fileID: 3295385114831228046}

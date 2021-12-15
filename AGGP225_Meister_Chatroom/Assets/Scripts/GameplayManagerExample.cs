@@ -18,7 +18,7 @@ public class GameplayManagerExample : MonoBehaviour
 
     public static GameplayManagerExample instance { get; private set; }
     public GameObject playerPrefab;
-    GameObject hat;
+    public GameObject hat;
 
     int gameMode;
 
@@ -37,13 +37,33 @@ public class GameplayManagerExample : MonoBehaviour
 
         if(instance == this)
         {
-            Debug.Log(PhotonManagerExample.instance.playerHat.name + "<===========");
-            hat = PhotonManagerExample.instance.playerHat;
-            Debug.Log(hat.name + "<===========");
             if (playerPrefab)
             {
-                PlayerController character = PhotonNetwork.Instantiate(playerPrefab.name, Spawns[PhotonNetwork.LocalPlayer.ActorNumber - 1].transform.position, Quaternion.identity).GetComponent<PlayerController>(); 
-                hat = PhotonNetwork.Instantiate(hat.name, character.hatHolder.transform.position, character.hatHolder.transform.rotation);
+                PlayerController character = PhotonNetwork.Instantiate(playerPrefab.name, Spawns[PhotonNetwork.LocalPlayer.ActorNumber - 1].transform.position, Quaternion.identity).GetComponent<PlayerController>();
+                Debug.Log(PhotonNetwork.LocalPlayer.ActorNumber);
+                if(PhotonManagerExample.instance.teammatch)
+                {
+                    if (PhotonNetwork.LocalPlayer.ActorNumber == 1 || PhotonNetwork.LocalPlayer.ActorNumber == 2)
+                    {
+                        character.teamnum = 1;
+                    }
+                    else
+                    {
+                        character.teamnum = 2;
+                    }
+                }
+                else
+                {
+                    character.teamnum = 0;
+                }
+
+                Debug.Log(PhotonManagerExample.instance.hatname);
+                Debug.Log(hat.name);
+                if(PhotonManagerExample.instance.hatname == hat.name)
+                {
+                    Debug.Log("Yes");
+                }
+                hat = PhotonNetwork.Instantiate(PhotonManagerExample.instance.hatname, character.hatHolder.transform.position, character.hatHolder.transform.rotation);
                 character.hatHolder.transform.localPosition = hat.transform.position;
                 hat.transform.parent = character.hatHolder.transform;
             }

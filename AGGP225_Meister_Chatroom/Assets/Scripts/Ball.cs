@@ -8,6 +8,7 @@ using cakeslice;
 
 public class Ball : MonoBehaviour
 {
+    public int teamnum;
     public bool live;
     Rigidbody rb;
     // Start is called before the first frame update
@@ -17,7 +18,10 @@ public class Ball : MonoBehaviour
 
         rb = gameObject.GetComponent<Rigidbody>();
 
-        Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), GameObject.Find("MiddleLine(wall)").GetComponent<Collider>(), true);
+        if(GameObject.Find("MiddleLine(wall)"))
+        {
+            Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), GameObject.Find("MiddleLine(wall)").GetComponent<Collider>(), true);
+        }
     }
 
     public void Throw()
@@ -35,10 +39,12 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         live = false;
+        teamnum = 0;
     }
 
     private void OnCollisionStay(Collision collision)
     {
         live = false;
+        teamnum = 0;
     }
 }
