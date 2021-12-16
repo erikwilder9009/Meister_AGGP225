@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     public GameObject bullet;
     public GameObject bulletSpawn;
     bool grounded;
-    public Camera PlayerCamera;
+    public Camera cam;
 
     public GameObject hatHolder;
 
@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        cam.enabled = true;
         lives = 3;
         walkset = Time.time;
         audioS = gameObject.GetComponent<AudioSource>();
@@ -54,9 +55,9 @@ public class PlayerController : MonoBehaviour
 
         if (gameObject.GetPhotonView().IsMine)
         {
+            cam.gameObject.SetActive(true);
             rb = gameObject.GetComponent<Rigidbody>();
             grounded = true;
-            //PlayerCamera.enabled = true;
         }
     }
 

@@ -662,7 +662,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6778076508654576890
 Transform:
   m_ObjectHideFlags: 0
@@ -918,7 +918,7 @@ MonoBehaviour:
   head: {fileID: 3295385113575211601}
   bullet: {fileID: 4410562953830427458, guid: df8f584e62c475d418bae824af66e7b5, type: 3}
   bulletSpawn: {fileID: 3295385114831228046}
-  PlayerCamera: {fileID: 0}
+  cam: {fileID: 2131834987837543174}
   hatHolder: {fileID: 1321489161098425734}
   username: 
   health: 0
